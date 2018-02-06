@@ -11,14 +11,16 @@
         <intercept-url pattern="/" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')"/>
         <intercept-url pattern="/welcome" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')"/>
         <intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/login" access=""/>
 
         <form-login login-page="/login" default-target-url="/welcome" authentication-failure-url="/login?error"
                     username-parameter="username" password-parameter="password"/>
 
-        <logout logout-success-url="/login?logout" delete-cookies="JSESSIONID"/>
-
+        <logout delete-cookies="shop" />
         <csrf/>
-        <remember-me data-source-ref="dataSource" token-validity-seconds="86400"/>
+        <remember-me data-source-ref="dataSource"
+                     token-validity-seconds="86400"
+                     remember-me-cookie="shop"/>
 
     </http>
 

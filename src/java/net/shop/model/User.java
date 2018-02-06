@@ -2,6 +2,7 @@ package net.shop.model;
 
 import net.shop.model.region.City;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.context.annotation.PropertySource;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -10,6 +11,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users")
+@PropertySource("classpath:properties/user.properties")
 public class User {
 
     @Id
@@ -18,27 +20,27 @@ public class User {
     private int id;
 
     @Pattern(regexp = "^[a-zA-Z0-9_]{6,12}$",
-            message = "Size username must be in range 6-12. Available symbols is A-Z, a-z, 0-9 and '_'.")
+            message = "${user.error.username}")
     @Column(name = "username")
     private String username;
 
     //   @Pattern(regexp = "^[a-zA-Z0-9_]{7,20}$",
-    //           message = "Size password must be in range 7-20. Available symbols is A-Z, a-z, 0-9 and '_'.")
+    //           message = "${user.error.password}")
     @Column(name = "password")
     private String password; //todo
 
     @Pattern(regexp = "^7[0-9]{10}$",
-            message = "The phone number must start at 7 and have 11 digits.")
+            message = "${user.error.phone}")
     @Column(name = "phone")
     private String phone;
 
     @Pattern(regexp = "^[a-zA-Zа-яА-Яё]{2,15}$",
-            message = "Size name must be in range 2-15. Available symbols is A-Z, a-z, а-я, А-Я.")
+            message = "${user.error.name}")
     @Column(name = "name")
     private String name;
 
     @Pattern(regexp = "^[a-zA-Zа-яА-Яё]{2,15}$",
-            message = "Size last name must be in range 2-15. Available symbols is A-Z, a-z, а-я, А-Я.")
+            message = "${user.error.lastName}")
     @Column(name = "lastName")
     private String lastName;
 

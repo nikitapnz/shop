@@ -23,7 +23,7 @@ public class Region {
     @JsonIgnore
     private Country country;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "region")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "region")
     @JsonIgnore
     List<City> cities;
 

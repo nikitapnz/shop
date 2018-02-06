@@ -18,7 +18,7 @@ public class Country {
     @Column(name = "name")
     String name;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "country")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "country")
     @JsonIgnore
     List<Region> regions;
 

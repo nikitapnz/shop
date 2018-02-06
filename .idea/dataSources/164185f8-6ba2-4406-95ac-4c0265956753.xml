@@ -245,36 +245,41 @@ role_id</ColNames>
       <Position>7</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <index id="64" parent="15" name="test_phone_uindex">
+    <column id="64" parent="15" name="enabled">
+      <Position>8</Position>
+      <DataType>tinyint(1)|0</DataType>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <index id="65" parent="15" name="test_phone_uindex">
       <ColNames>phone</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="65" parent="15" name="test_username_uindex">
+    <index id="66" parent="15" name="test_username_uindex">
       <ColNames>username</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="66" parent="15" name="id_UNIQUE">
+    <index id="67" parent="15" name="id_UNIQUE">
       <ColNames>id</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="67" parent="15" name="PRIMARY">
+    <key id="68" parent="15" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="68" parent="15" name="id_UNIQUE">
+    <key id="69" parent="15" name="id_UNIQUE">
       <ColNames>id</ColNames>
       <UnderlyingIndexName>id_UNIQUE</UnderlyingIndexName>
     </key>
-    <key id="69" parent="15" name="test_username_uindex">
+    <key id="70" parent="15" name="test_username_uindex">
       <ColNames>username</ColNames>
       <UnderlyingIndexName>test_username_uindex</UnderlyingIndexName>
     </key>
-    <key id="70" parent="15" name="test_phone_uindex">
+    <key id="71" parent="15" name="test_phone_uindex">
       <ColNames>phone</ColNames>
       <UnderlyingIndexName>test_phone_uindex</UnderlyingIndexName>
     </key>
-    <column id="71" parent="16" name="kek">
+    <column id="72" parent="16" name="kek">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
     </column>

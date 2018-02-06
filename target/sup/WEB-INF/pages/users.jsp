@@ -54,12 +54,11 @@
     List bean=(List)request.getAttribute("listUsers");
     out.print(bean.toString());
 %>
-
-<form action="/register" method="post">
-    <p><input type="id" name="id"></p>
-    <p><input type="username" name="username"></p>
-    <p><input type="password" name="password"></p>
-    <p><input type="submit" value="Отправить"></p>
+<c:url value="/logout" var="logoutUrl" />
+<form action="${logoutUrl}" method="post" id="logoutForm">
+    <input type="hidden" name="${_csrf.parameterName}"
+           value="${_csrf.token}" />
+    <input type="submit">
 </form>
 
 </body>

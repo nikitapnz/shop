@@ -2,16 +2,17 @@ package net.shop.model;
 
 import net.shop.model.region.City;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.Set;
 
 @Entity
 @Table(name = "users")
-@PropertySource("classpath:properties/user.properties")
 public class User {
 
     @Id
@@ -19,34 +20,31 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Pattern(regexp = "^[a-zA-Z0-9_]{6,12}$",
-            message = "${user.error.username}")
+    @Pattern(regexp = "^[a-zA-Z0-9_]{6,12}$")
     @Column(name = "username")
     private String username;
 
-    //   @Pattern(regexp = "^[a-zA-Z0-9_]{7,20}$",
-    //           message = "${user.error.password}")
+    @Pattern(regexp = "^[a-zA-Z0-9_]{7,60}$")
     @Column(name = "password")
     private String password; //todo
 
-    @Pattern(regexp = "^7[0-9]{10}$",
-            message = "${user.error.phone}")
     @Column(name = "phone")
     private String phone;
 
-    @Pattern(regexp = "^[a-zA-Zа-яА-Яё]{2,15}$",
-            message = "${user.error.name}")
+    @Pattern(regexp = "^[a-zA-Zа-яА-Яё]{2,15}$")
     @Column(name = "name")
     private String name;
 
-    @Pattern(regexp = "^[a-zA-Zа-яА-Яё]{2,15}$",
-            message = "${user.error.lastName}")
+    @Pattern(regexp = "^[a-zA-Zа-яА-Яё]{2,15}$")
     @Column(name = "lastName")
     private String lastName;
 
     @ManyToOne
     @JoinColumn(name = "city_id")
     private City city;
+
+    @Column(name = "email")
+    private String email;
 
     @ManyToMany
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"),
@@ -57,9 +55,6 @@ public class User {
     @Transient
     private int cityid;
 
-    @NotNull
-    @Transient
-    private int phoneCode;
 
 //    @Column(name = "roles")
 //    private String roles;
@@ -135,13 +130,6 @@ public class User {
         this.cityid = cityid;
     }
 
-    public int getPhoneCode() {
-        return phoneCode;
-    }
-
-    public void setPhoneCode(int phoneCode) {
-        this.phoneCode = phoneCode;
-    }
 
     public Set<Role> getRoles() {
         return roles;
@@ -149,6 +137,14 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override
@@ -160,6 +156,10 @@ public class User {
                 ", phone='" + phone + '\'' +
                 ", name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +
+                ", city=" + city +
+                ", email='" + email + '\'' +
+                ", roles=" + roles +
+                ", cityid=" + cityid +
                 '}';
     }
 }

@@ -3,18 +3,22 @@ package net.shop.dao;
 import net.shop.model.Sms;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Repository;
 import org.springframework.validation.BindingResult;
 
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @Repository
+@PropertySource("classpath:properties/sms.properties")
 public class SmsDaoImpl implements SmsDao {
     private SessionFactory sessionFactory;
     private UserDao userDao;
-    private int numberOfAttempts = 3; // todo
+
+    @Value("${Sms.config.numberOfAttempts}")
+    private int numberOfAttempts;
+
 
     public void setUserDao(UserDao userDao) {
         this.userDao = userDao;

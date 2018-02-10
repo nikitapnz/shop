@@ -95,13 +95,15 @@ public class UserController {
                                HttpServletRequest request) {
         if (result.hasErrors())
             return "test";
-
+        user.setEmail("sss");
+        user.setPhone("ddd");
         if (user.getId() == 0)
             // if (smsService.checkCode(request.getRemoteAddr(), user, result) && userService.addUser(user, result))
-            if (userService.addUser(user, result))
-                return "redirect:/welcome";
-
-        securityService.autoLogin(user.getUsername(), user.getPassword());
+            if (userService.addUser(user, result)) {
+                securityService.autoLogin(user.getUsername(), user.getPassword());
+                return "redirect:/verification";
+            }
+            user.setPassword("");
         return "test";
     }
 
@@ -121,6 +123,14 @@ public class UserController {
             model.addAttribute("error", "Logout was");
         }
         return "login";
+    }
+
+    @RequestMapping(value = "/verification", method = RequestMethod.GET)
+    public String verification(Model model){
+        User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("phone", user.getPhone());
+        model.addAttribute("email", user.getEmail());
+        return "verification";
     }
 
 }

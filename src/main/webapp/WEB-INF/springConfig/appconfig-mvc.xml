@@ -93,6 +93,10 @@
         <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
     </bean>
 
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename" value="properties/user" />
+    </bean>
+
 
     <mvc:default-servlet-handler/>
     <mvc:annotation-driven/>

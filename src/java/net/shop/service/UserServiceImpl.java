@@ -48,9 +48,8 @@ public class UserServiceImpl implements UserService {
         user.setCity(city);
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         Set<Role> roles = new HashSet<Role>();
-        roles.add(roleDao.getOne(1));
+        roles.add(roleDao.getOne(3));
         user.setRoles(roles);
-        System.out.println(roles.toString());
         return this.userDao.addUser(user, result);
     }
 
@@ -59,7 +58,6 @@ public class UserServiceImpl implements UserService {
     public void updateUser(User user) {
         this.userDao.updateUser(user);
     }
-
 
     @Transactional
     public void removeUser(int id) {

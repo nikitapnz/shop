@@ -24,7 +24,7 @@ public class User {
     @Column(name = "username")
     private String username;
 
-    @Pattern(regexp = "^[a-zA-Z0-9_]{7,60}$")
+  //  @Pattern(regexp = "^[a-zA-Z0-9_]{7,100}$")
     @Column(name = "password")
     private String password; //todo
 
@@ -55,8 +55,18 @@ public class User {
     @Transient
     private int cityid;
 
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "user")
+    private Sms sms;
 
-//    @Column(name = "roles")
+    public Sms getSms() {
+        return sms;
+    }
+
+    public void setSms(Sms sms) {
+        this.sms = sms;
+    }
+
+    //    @Column(name = "roles")
 //    private String roles;
 //
 //    @Column(name = "savedThings")

@@ -45,21 +45,7 @@
                 <form:errors path="lastName" cssClass="error" />
             </td>
         </tr>
-        <tr>
-            <th>phone</th>
-            <td>
-                <form:input path="phone" />
-                <form:errors path="phone" cssClass="error" />
-            </td>
-        </tr>
 
-        <tr>
-            <th>phone code</th>
-            <td>
-                <form:input path="phoneCode" />
-                <form:errors path="phoneCode" cssClass="error" />
-            </td>
-        </tr>
 
         <tr>
             <th>city</th>
@@ -74,11 +60,6 @@
     </table>
 </form:form>
 
-
-<form action="/addsms" method="post">
-    <p><input type="phone" name="phone"></p>
-    <p><input type="submit" value="Отправить"></p>
-</form>
 
 <script src="https://unpkg.com/vue/dist/vue.js"></script>
 <script type="text/javascript" defer>

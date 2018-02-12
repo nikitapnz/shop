@@ -6,6 +6,8 @@ import org.springframework.validation.BindingResult;
 import java.util.HashMap;
 
 public interface SmsDao {
-    public HashMap<String, String> createSms(Sms sms);
-    public boolean checkCode(String ip, String phone, int code, BindingResult result);
+    public void createSms(Sms sms);
+    public Sms existRow(String field, String value);
+    public void deleteSms(Sms sms);
+    public void updateSms(Sms sms);
 }

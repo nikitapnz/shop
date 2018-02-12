@@ -8,6 +8,6 @@ import java.util.HashMap;
 
 public interface SmsService {
     public int createCode();
-    public HashMap<String, String> addCode(String ip, Sms sms);
-    public boolean checkCode(String ip, User user, BindingResult result);
+    public HashMap<String, String> addCode(String ip, Sms sms, User user);
+    public HashMap<String, String> checkCode(String ip, Sms sms, User user);
 }

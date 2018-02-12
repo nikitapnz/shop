@@ -1,5 +1,6 @@
 package net.shop.controller;
 
+import net.shop.model.Sms;
 import net.shop.model.User;
 //import net.shop.security.SecurityService;
 import net.shop.security.SecurityService;
@@ -12,6 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -23,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.security.Principal;
 
 
 @Controller
@@ -95,10 +98,7 @@ public class UserController {
                                HttpServletRequest request) {
         if (result.hasErrors())
             return "test";
-        user.setEmail("sss");
-        user.setPhone("ddd");
         if (user.getId() == 0)
-            // if (smsService.checkCode(request.getRemoteAddr(), user, result) && userService.addUser(user, result))
             if (userService.addUser(user, result)) {
                 securityService.autoLogin(user.getUsername(), user.getPassword());
                 return "redirect:/verification";
@@ -126,10 +126,14 @@ public class UserController {
     }
 
     @RequestMapping(value = "/verification", method = RequestMethod.GET)
-    public String verification(Model model){
-        User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        model.addAttribute("phone", user.getPhone());
-        model.addAttribute("email", user.getEmail());
+    public String verification(Model model, Principal principal){
+        User user = userService.findByUsername(principal.getName());
+        if (user.getPhone() == null)
+            model.addAttribute("phone", new Sms());
+        else
+            model.addAttribute("newPhone", user.getPhone());
+//        if (user.getEmail() == null)
+//            model.addAttribute("email", );
         return "verification";
     }
 

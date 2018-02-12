@@ -6,6 +6,7 @@ import net.shop.model.Role;
 import net.shop.model.User;
 import net.shop.model.region.City;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
@@ -23,6 +24,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Autowired
+    private Environment env;
 
     public void setSmsService(net.shop.service.SmsService smsService) {
         SmsService = smsService;
@@ -42,6 +46,12 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     public boolean addUser(User user, BindingResult result) {
+
+        if (userDao.checkExist("username", user.getUsername())) {
+            result.rejectValue("username", "username.user", env.getProperty("Exist.user.username"));
+            return false;
+        }
+
         City city = regionService.getCityById(user.getCityid());
         if (city == null)
             return false;
@@ -50,7 +60,7 @@ public class UserServiceImpl implements UserService {
         Set<Role> roles = new HashSet<Role>();
         roles.add(roleDao.getOne(3));
         user.setRoles(roles);
-        return this.userDao.addUser(user, result);
+        return this.userDao.addUser(user);
     }
 
 
@@ -72,6 +82,11 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public List<User> listUsers() {
         return this.userDao.listUsers();
+    }
+
+    @Transactional
+    public User findByUsername(String username){
+        return userDao.findByUsername(username);
     }
 
 }

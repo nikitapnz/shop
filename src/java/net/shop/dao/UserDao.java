@@ -7,7 +7,7 @@ import org.springframework.validation.BindingResult;
 import java.util.List;
 
 public interface UserDao {
-    public boolean addUser(User user, BindingResult result);
+    public boolean addUser(User user);
 
     public void updateUser(User user);
 
@@ -19,5 +19,5 @@ public interface UserDao {
 
     public List<User> listUsers();
 
-    public boolean checkExist(String field, String val, Session session);
+    public boolean checkExist(String field, String val);
 }

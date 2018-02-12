@@ -68,7 +68,6 @@
 
     <bean id="smsDao" class="net.shop.dao.SmsDaoImpl">
         <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
-        <property name="userDao" ref="userDao"/>
     </bean>
 
     <bean id="userService" class="net.shop.service.UserServiceImpl">
@@ -94,7 +93,7 @@
     </bean>
 
     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
-        <property name="basename" value="properties/user" />
+        <property name="basename" value="properties/user"/>
     </bean>
 
 

@@ -29,22 +29,12 @@ public class UserDaoImpl implements UserDao {
         this.sessionFactory = sessionFactory;
     }
 
-    public boolean addUser(User user, BindingResult result) {
+    public boolean addUser(User user) {
         Session session = this.sessionFactory.getCurrentSession();
-        if (checkExist("username", user.getUsername(), session)) {
-            result.rejectValue("username", "username.user", env.getProperty("Exist.user.username"));
-            return false;
-        }
-        System.out.println(user.toString());
         session.persist(user);
         return true;
     }
 
-
-    public void updateUser(User user) {
-        Session session = this.sessionFactory.getCurrentSession();
-        session.update(user);
-    }
 
 
     public void removeUser(int id) {
@@ -64,7 +54,8 @@ public class UserDaoImpl implements UserDao {
         return user;
     }
 
-    public boolean checkExist(String field, String val, Session session) {
+    public boolean checkExist(String field, String val) {
+        Session session = this.sessionFactory.getCurrentSession();
         boolean res = true;
         User user = null;
         try {
@@ -93,6 +84,11 @@ public class UserDaoImpl implements UserDao {
 
         }
         return user;
+    }
+
+    public void updateUser(User user) {
+        Session session = this.sessionFactory.getCurrentSession();
+        session.update(user);
     }
 
     @SuppressWarnings("unchecked")
